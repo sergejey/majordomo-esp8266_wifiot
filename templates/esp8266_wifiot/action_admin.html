@@ -1,0 +1,56 @@
+
+ <!-- action usual -->
+ [#if DATA_SOURCE="espdevices" || DATA_SOURCE=""#]
+ <!-- table espdevices search -->
+ [#if VIEW_MODE="search_espdevices" || VIEW_MODE=""#]
+  [#inc espdevices_search_admin.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table espdevices search -->
+ <!-- table espdevices edit -->
+ [#if VIEW_MODE="edit_espdevices"#]
+   [#if ID!=""#]
+   [#if TITLE!=""#]<h4>[#TITLE#]</h4>[#endif TITLE#]
+<ul class="nav nav-tabs">
+  <li[#if TAB=""#] class="active"[#endif#]>
+   <a href="?data_source=<#DATA_SOURCE#>&view_mode=<#VIEW_MODE#>&id=<#ID#>&tab="><#LANG_GENERAL#></a>
+  </li>
+  <li[#if TAB="data"#] class="active"[#endif#]>
+   <a href="?data_source=<#DATA_SOURCE#>&view_mode=<#VIEW_MODE#>&id=<#ID#>&tab=data">&#060#LANG_DATA#&#062</a>
+  </li>
+</ul>
+&nbsp;<br/>
+   [#endif ID#]
+   [#if TAB=""#]
+    [#inc espdevices_edit_default.html#]
+   [#endif TAB#]
+   [#if TAB="data"#]
+    [#inc espdevices_edit_data.html#]
+   [#endif TAB#]
+ [#endif VIEW_MODE#]
+ <!-- / table espdevices edit -->
+ <!-- table espdevices view --> 
+ [#if VIEW_MODE="view_espdevices"#]
+   [#if TAB=""#]
+    [#inc espdevices_view_default.html#]
+   [#endif TAB#]
+ [#endif VIEW_MODE#]
+ <!-- / table espdevices view -->
+ [#endif DATA_SOURCE#]
+ <!-- action usual -->
+ [#if DATA_SOURCE="espdevices_data"#]
+ <!-- table espdevices_data search -->
+ [#if VIEW_MODE="search_espdevices_data" || VIEW_MODE=""#]
+  [#inc espdevices_data_search_admin.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table espdevices_data search -->
+ <!-- table espdevices_data edit -->
+ [#if VIEW_MODE="edit_espdevices_data"#]
+   [#inc espdevices_data_edit.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table espdevices_data edit -->
+ <!-- table espdevices_data view --> 
+ [#if VIEW_MODE="view_espdevices_data"#]
+   [#inc espdevices_data_view.html#]
+ [#endif VIEW_MODE#]
+ <!-- / table espdevices_data view -->
+ [#endif DATA_SOURCE#]
