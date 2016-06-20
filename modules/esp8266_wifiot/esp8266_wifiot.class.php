@@ -179,7 +179,7 @@ function usual(&$out) {
 
  foreach($_GET as $k=>$v) {
 
-  if ($k=='script' || $k=='idesp') {
+  if ($k=='script' || $k=='idesp' || $v=='') {
    continue;
   }
   $prop=SQLSelectOne("SELECT * FROM espdevices_data WHERE TITLE LIKE '".DBSafe($k)."' AND DEVICE_ID='".$device['ID']."'");
