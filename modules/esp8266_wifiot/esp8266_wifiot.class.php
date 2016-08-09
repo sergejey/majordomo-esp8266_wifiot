@@ -307,7 +307,7 @@ function usual(&$out) {
 *
 * @access private
 */
- function dbInstall() {
+ function dbInstall($data) {
 /*
 espdevices - 
 espdevices_data - 
