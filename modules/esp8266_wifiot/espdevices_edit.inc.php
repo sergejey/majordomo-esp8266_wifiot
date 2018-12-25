@@ -11,7 +11,7 @@
    $ok=1;
   // step: default
   if ($this->tab=='') {
-  //updating '<%LANG_TITLE%>' (varchar, required)
+  //updating 'LANG_TITLE' (varchar, required)
    global $title;
    $rec['TITLE']=$title;
    if ($rec['TITLE']=='') {
@@ -70,6 +70,27 @@
        addLinkedProperty($properties[$i]['LINKED_OBJECT'], $properties[$i]['LINKED_PROPERTY'], $this->name);
       }
      }
+      if (file_exists(DIR_MODULES.'devices/devices.class.php')) {
+		if (strpos($properties[$i]['TITLE'], 'dhtt') !== false ||
+            strpos($properties[$i]['TITLE'], 'bmpt') !== false) {
+               $properties[$i]['SDEVICE_TYPE'] = 'sensor_temp';
+		} elseif (strpos($properties[$i]['TITLE'], 'dhth') !== false ||
+                  strpos($properties[$i]['TITLE'], 'bmph') !== false ) {
+			$properties[$i]['SDEVICE_TYPE']='sensor_humidity';
+		} elseif (strpos($properties[$i]['TITLE'], 'light') !== false) {
+			$properties[$i]['SDEVICE_TYPE']='sensor_light';
+		} elseif (strpos($properties[$i]['TITLE'], 'hlw_w') !== false) {
+			$properties[$i]['SDEVICE_TYPE']='sensor_power';
+		} elseif (strpos($properties[$i]['TITLE'], 'hlw_v') !== false) {
+			$properties[$i]['SDEVICE_TYPE']='sensor_voltage';
+		} elseif (strpos($properties[$i]['TITLE'], 'hlw_c') !== false) {
+			$properties[$i]['SDEVICE_TYPE']='sensor_current';
+		} elseif (strpos($properties[$i]['TITLE'], 'hlw_wh') !== false) {
+			$properties[$i]['SDEVICE_TYPE']='sensor_power';
+		} else
+            $properties[$i]['SDEVICE_TYPE']='sensor_general';
+
+      }
    }
    $out['PROPERTIES']=$properties;   
   }
