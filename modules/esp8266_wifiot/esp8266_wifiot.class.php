@@ -252,13 +252,24 @@ function usual(&$out) {
  function edit_espdevices_data(&$out, $id) {
   require(DIR_MODULES.$this->name.'/espdevices_data_edit.inc.php');
  }
- function propertySetHandle($object, $property, $value) {
+ 
+function propertySetHandle($object, $property, $value) {
    $table='espdevices_data';
-   $properties=SQLSelect("SELECT ID FROM $table WHERE LINKED_OBJECT LIKE '".DBSafe($object)."' AND LINKED_PROPERTY LIKE '".DBSafe($property)."'");
+   $properties=SQLSelect("SELECT * FROM $table WHERE LINKED_OBJECT LIKE '".DBSafe($object)."' AND LINKED_PROPERTY LIKE '".DBSafe($property)."'");
    $total=count($properties);
    if ($total) {
     for($i=0;$i<$total;$i++) {
-     //to-do
+     $name = $properties[$i]["TITLE"];
+     if (strpos($name, 'gpiout') !== false)
+     {
+        $device=SQLSelectOne("SELECT * FROM espdevices WHERE ID=".DBSafe($properties[$i]["DEVICE_ID"]));
+        $ip = $device["IP"];
+        $pin = substr($name,6);
+        getURL("http://$ip/gpio?st=$value&pin=$pin",0);
+     }
+     $properties[$i]['VALUE']=$value.'';
+     $properties[$i]['UPDATED']=date('Y-m-d H:i:s');
+     SQLUpdate($table, $properties[$i]);
     }
    }
  }
