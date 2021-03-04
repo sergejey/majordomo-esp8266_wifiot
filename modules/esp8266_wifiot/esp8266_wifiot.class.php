@@ -183,7 +183,7 @@ function usual(&$out) {
    continue;
   }
   $prop=SQLSelectOne("SELECT * FROM espdevices_data WHERE TITLE LIKE '".DBSafe($k)."' AND DEVICE_ID='".$device['ID']."'");
-  //$old_value=$prop['VALUE'];
+  $old_value=$prop['VALUE'];  // раскоментировано потому что нужно старое значение
   if ($v!=$prop['VALUE']) {
    $prop['UPDATED']=date('Y-m-d H:i:s');
   }
@@ -202,8 +202,10 @@ function usual(&$out) {
   if ($prop['LINKED_OBJECT'] && $prop['LINKED_METHOD']) {
    $params=array();
    $params['TITLE']=$prop['TITLE'];
-   $params['VALUE']=$prop['VALUE'];
-   $params['value']=$prop['VALUE'];
+   $params['VALUE']=$prop['VALUE'];     // рудимент оставляю чтобы рабатали давно настроенные системы
+   $params['value']=$prop['VALUE'];     // рудимент оставляю чтобы рабатали давно настроенные системы
+   $params['OLD_VALUE']=$old_value;			// новая метрика предыдущее значение
+   $params['NEW_VALUE']=$prop['VALUE'];		// новая метрика для совместимости с другими модулями
    callMethod($prop['LINKED_OBJECT'].'.'.$prop['LINKED_METHOD'], $params);
   }
  }
