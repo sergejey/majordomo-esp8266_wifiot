@@ -266,8 +266,12 @@ function propertySetHandle($object, $property, $value) {
      {
         $device=SQLSelectOne("SELECT * FROM espdevices WHERE ID=".DBSafe($properties[$i]["DEVICE_ID"]));
         $ip = $device["IP"];
-        $pin = substr($name,6);
-        getURL("http://$ip/gpio?st=$value&pin=$pin",0);
+        if (preg_match('/(\d+)/',$name)) {
+            $pin = $m[1];
+            getURL("http://$ip/gpio?st=$value&pin=$pin",0);
+        } else {
+            DebMes("Unknown pin number: $name",'esp8266');
+        }
      }
      $properties[$i]['VALUE']=$value.'';
      $properties[$i]['UPDATED']=date('Y-m-d H:i:s');
