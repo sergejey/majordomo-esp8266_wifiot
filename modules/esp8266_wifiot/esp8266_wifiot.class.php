@@ -262,7 +262,7 @@ function propertySetHandle($object, $property, $value) {
    if ($total) {
     for($i=0;$i<$total;$i++) {
      $name = $properties[$i]["TITLE"];
-     if (strpos($name, 'gpiout') !== false)
+     if (strpos($name, 'gpiout') !== false || strpos($name, 'gpio') !== false)
      {
         $device=SQLSelectOne("SELECT * FROM espdevices WHERE ID=".DBSafe($properties[$i]["DEVICE_ID"]));
         $ip = $device["IP"];
