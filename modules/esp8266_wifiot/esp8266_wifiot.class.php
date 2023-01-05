@@ -266,7 +266,7 @@ function propertySetHandle($object, $property, $value) {
      {
         $device=SQLSelectOne("SELECT * FROM espdevices WHERE ID=".DBSafe($properties[$i]["DEVICE_ID"]));
         $ip = $device["IP"];
-        if (preg_match('/(\d+)/',$name)) {
+        if (preg_match('/(\d+)/',$name, $m)) {
             $pin = $m[1];
             getURL("http://$ip/gpio?st=$value&pin=$pin",0);
         } else {
